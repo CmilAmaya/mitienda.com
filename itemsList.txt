@@ -1,3 +1,5 @@
 Frutas
 Verduras
 Lacteos
+Abarrotes
+Enlatados
