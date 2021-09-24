@@ -1,0 +1,6 @@
+Empresa 
+Nombre
+Apellido
+Identificación 
+Producto
+Marca
