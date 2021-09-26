@@ -1,0 +1,3 @@
+Este archivo va hacer un codigo 
+que nos permita observar la valoracion o 
+comentarios de los clientes de forma automatica
