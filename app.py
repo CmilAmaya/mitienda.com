@@ -5,12 +5,14 @@ from sqlalchemy.orm import session
 
 app = Flask(__name__)
 #conexion a la base de datos: 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>'
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:root@localhost:5432/mitiendadb2'
+app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://vkxloqhhabrinb:6afc88e11ca5780df6635e9113813dcad93c3a94a8c3337f98ba2711ebcda892@ec2-35-171-171-27.compute-1.amazonaws.com:5432/dam05ju1pfpbir'
+# esta es la direccion para la base de datos local, ahora es remota de heroku linea anterior, y se va'postgresql://postgres:root@localhost:5432/mitiendadb2'
+#app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://postgres:root@localhost:5432/mitiendadb2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key ='some-secret-key'
 
 # definiendo la basse de datos en el codigo
-db = SQLAlchemy(app)
+db = SQLAlchemy(app) # este app o lo que sea va en el procfile kkllk:app
 
 # importar los modelos de las tablas que cree en el otro archivo
 from models import Product, NewUser
