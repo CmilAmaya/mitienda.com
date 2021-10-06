@@ -52,7 +52,7 @@ def create_user():
     db.session.add(newUser)  #creado y agregado a base de datos
     db.session.commit()
     return "ok"
-
+'''
 # ingreso para ingreso, viene de home Administrador
 @app.route('/signin')
 def sing_in():
@@ -64,6 +64,7 @@ def sing_in_ad():
     email = request.form["email"]
     passwordin = request.form["password"]
     return (email, passwordin)
+'''
 '''def get_user():
     user = NewUser.query.email() 
     password_ok = NewUser.query.password()
@@ -74,7 +75,7 @@ if email == user & passwordin==pasword_ok:
 else:
     print ("Acceso Denegado")
     # retornar a home'''
-
+'''
 # acceso como tendero, viene de Home, va al manejo de ventas y compras
 @app.route('/signin_grocer')
 def sing_in():
@@ -192,7 +193,7 @@ def delete_user():
     db.session.commit()
     return "Se borro user"
 
-
+'''
 #Pruebas con postman
 
 '''@app.route('/product', methods = ['GET','POST']) # definir ruta y le dije que acepte post y get una vez cambie datos no me acepta de nuevo
@@ -241,5 +242,6 @@ def crud_product(): # metodo, para probar es con postman
         return "Registro Exitoso"
 
      '''
+
 if __name__ == "__main__":
 	    app.run()
