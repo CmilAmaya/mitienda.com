@@ -239,3 +239,5 @@ def crud_product(): # metodo, para probar es con postman
         return "Registro Exitoso"
 
      '''
+if __name__ == "__main__":
+	    app.run()
