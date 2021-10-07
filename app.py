@@ -52,7 +52,7 @@ def create_user():
     newUser = NewUser(email, password,cedula, telephone, role, name, lastname, birthDate)  
     db.session.add(newUser)  #creado y agregado a base de datos
     db.session.commit()
-    return ("Usuario creado con exito ", "Ir a la pagina principal", redirect(url_for('/'))
+    return ("Usuario creado con exito ", redirect(url_for('https://tiendatic.herokuapp.com/'))
     
     
 
