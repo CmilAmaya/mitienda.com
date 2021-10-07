@@ -3,6 +3,7 @@ from flask.wrappers import Request #request importado para manejar peticiones qu
 from flask_sqlalchemy import SQLAlchemy #importada para trabajar de python a SQL bases de datos
 from sqlalchemy.orm import session
 
+
 app = Flask(__name__)
 #conexion a la base de datos: 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>'
 app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://vkxloqhhabrinb:6afc88e11ca5780df6635e9113813dcad93c3a94a8c3337f98ba2711ebcda892@ec2-35-171-171-27.compute-1.amazonaws.com:5432/dam05ju1pfpbir'
@@ -52,7 +53,9 @@ def create_user():
     newUser = NewUser(email, password,cedula, telephone, role, name, lastname, birthDate)  
     db.session.add(newUser)  #creado y agregado a base de datos
     db.session.commit()
-    return ("Usuario creado con exito ", redirect(url_for('https://tiendatic.herokuapp.com/'))
+    # return ("Usuario creado con exito ")
+    import webbrowser
+    webbrowser.open("https://tiendatic.herokuapp.com/ ") 
     
     
 
