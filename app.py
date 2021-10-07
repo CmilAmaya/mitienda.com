@@ -42,16 +42,20 @@ def sing_up():
 def create_user():
     email = request.form["email"] #trae los datos de los form de html
     password = request.form["password"]
+    cedula = request.form["cedula"]
     telephone = request.form["telephone"]
     role = request.form["role"]
     name = request.form["name"]
     lastname = request.form["lastname"]
     birthDate = request.form["birthDate"]
     print (email, password, telephone, role, name, lastname, birthDate)
-    newUser = NewUser(email, password, telephone, role, name, lastname, birthDate)  
+    newUser = NewUser(email, password,cedula, telephone, role, name, lastname, birthDate)  
     db.session.add(newUser)  #creado y agregado a base de datos
     db.session.commit()
-    return "ok"
+    return ("Usuario creado con exito ", "Ir a la pagina principal", redirect(url_for('/'))
+    
+    
+
 '''
 # ingreso para ingreso, viene de home Administrador
 @app.route('/signin')

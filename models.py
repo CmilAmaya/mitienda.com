@@ -82,6 +82,7 @@ class NewUser (db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     email = db.Column(db.String, unique = True)
     password = db.Column(db.String)
+    cedula = db.Column(db.Integer, unique = True)
     telephone = db.Column(db.String)
     role = db.Column(db.String)
     name = db.Column(db.String)
