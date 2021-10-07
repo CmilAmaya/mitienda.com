@@ -41,4 +41,4 @@ Como beneficio esta aplicación WEB facilitará la operación de las tiendas y s
 <img src="https://user-images.githubusercontent.com/90462863/134532117-268ad238-8c87-40c1-bd33-dcf9f36528b2.png">
 
 <h1> Diagrama Entidad-Relacion</h1>
-<img src="Diagramas/relationEntity.jpg">
+<img width="494" alt="2021-10-01 (2)" src="https://user-images.githubusercontent.com/90462863/136126796-fa9c6f19-311d-403e-974e-885e6201e5bc.png">>

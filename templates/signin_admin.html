@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<h>, initial-scale=1.0">
+        <title>mitienda.com</title>
+        <link <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body{
+        text-align: center;  
+        }
+        input[type=email] {
+        border: 2px solid red;
+        border-radius: 6px;
+        }
+        input[type=email] {
+        width: 20%;
+        padding: 12px 20px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        
+        }
+        input[type=password] {
+        border: 2px solid red;
+        border-radius: 6px;
+        }
+        input[type=password] {
+        width: 20%;
+        padding: 12px 20px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        }
+    </style>    
+    </head>
+<body class="center">
+   <h1> Registro mitienda.com </h1> 
+   
+    <p>   </p> 
+    <img src="https://img.freepik.com/vector-gratis/carro-tienda-edificio-tienda-dibujos-animados_138676-2085.jpg?size=338&ext=jpg" width="200">
+    <p>   </p> 
+    <!-- aqui se conecta frontend con la base de datos por medio de un formulario-->
+    <!-- tomando la url, entrada que se llama igual que lo que llega del post request--> 
+    
+    <form action="{{url_for('signin_admin')}}" method="post">
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" placeholder="Ingrese email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" placeholder="Contraseña" name="password">
+        </div>
+        <div>
+        <!-- presiono el boton y se envian los datos a la url por un post request-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+</body>
+</html>
