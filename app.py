@@ -39,7 +39,7 @@ def sing_up():
     return  render_template("register.html") #'Aqui va redirigido a otra html con el formulario de registro /sign_updata
 
 # post de los datos del registro, viene de signup
-@app.route('/create_user', methods=['POST', 'GET'])
+@app.route('/create_user', methods=['POST'])
 def create_user():
     email = request.form["email"] #trae los datos de los form de html
     password = request.form["password"]
@@ -53,13 +53,10 @@ def create_user():
     newUser = NewUser(email, password,cedula, telephone, role, name, lastname, birthDate)  
     db.session.add(newUser)  #creado y agregado a base de datos
     db.session.commit()
-    # return ("Usuario creado con exito ")
-    import webbrowser
-    webbrowser.open("https://tiendatic.herokuapp.com/ ") 
-    
-    
+    return ("Usuario creado con exito ")
 
-'''
+    # falta hacer que regrese a home
+      
 # ingreso para ingreso, viene de home Administrador
 @app.route('/signin')
 def sing_in():
@@ -67,11 +64,12 @@ def sing_in():
 
 # acceso como administrador, debe ir al panel de administrador
 @app.route('/signin_admin', methods=['POST'])
-def sing_in_ad():
+def singin_admin():
     email = request.form["email"]
     passwordin = request.form["password"]
-    return (email, passwordin)
-'''
+    print ("Bienvenido" , email, passwordin)
+    #return (email, passwordin)
+
 '''def get_user():
     user = NewUser.query.email() 
     password_ok = NewUser.query.password()
