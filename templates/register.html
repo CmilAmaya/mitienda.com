@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitienda</title>
+</head>
+<body>
+    <h1> Sign up the Store Mitienda.com</h1>
+    <form action="{{url_for('create_user')}}" method='post'>
+        <h4>Enter your data</h4>
+        <div>
+            <input type="text" name="email" placeholder="Your_email">
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="Your_password">
+        </div>
+        <div>
+            <input type="text" name="telephone" placeholder="Your_telephone">
+        </div>
+        <div>
+            <input type="text" name="role" placeholder="Your_role">
+        </div>
+        <div>
+            <input type="text" name="name" placeholder="Your_name">
+        </div>
+        <div>
+            <input type="text" name="lastname" placeholder="Your_lastname">
+        </div>
+        <div>
+            <input type="text" name="birthDate" placeholder="Your_birthDate">
+        </div>    
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>    
+</body>
+</html>
