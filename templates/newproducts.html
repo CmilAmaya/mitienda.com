@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitienda</title>
+</head>
+<body>
+    <center><h1> New porduct Mitienda.com</h1></center>
+    <form action="{{url_for('create_product')}}" method='post'>
+        <center><h4>Enter the porduct data</h4>
+        
+        <div>
+            <left>Name</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="name" placeholder="name_product">
+        </div>
+        <div>
+            <left>Code product</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   <input type="text" name="codeproduct" placeholder="Code_product">
+        </div>
+        <div>
+            <left>Brand</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="brand" placeholder="brand_product">
+        </div>
+        <div>
+            <left>Product type</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="productType" placeholder="Product_type">
+        </div>
+        <div>
+            <left>Measure unit</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="measureUnit" placeholder="Measure_Unit_product">
+        </div>
+        <div>
+            <left>ivaTax</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="ivaTax" placeholder="ivaTax_product">
+        </div>    
+        <div>
+            <left>Stock</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="stock" placeholder="stock_product">
+        </div>        
+        <div>
+            <left>Stock minimun</left>&nbsp&nbsp&nbsp&nbsp<input type="text" name="stockmin" placeholder="stockmin_product">
+        </div>    
+        <div>
+            <left>Amount</left>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="amount" placeholder="amount_product">
+        </div>            
+        <div>
+            <button>Submit</button>
+        </div>
+        <div>
+            <left><img src="https://cdn-icons-png.flaticon.com/512/2947/2947561.png"width="200" height="200"></left>
+         </div>
+    </center>
+        
+    
+    </form>    
+</body>
+</html>
