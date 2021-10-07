@@ -1,0 +1,184 @@
+from app import db
+#tabla producto
+class products (db.Model):
+    __tablename__ = 'products'
+    id_product = db.Column (db.Integer, primary_key = True, autoincrement = True)    
+    name = db.Column(db.String)
+    codeProduct = db.Column(db.Integer)
+    brand = db.Column(db.String)
+    productType = db.Column(db.String)
+    measureUnit = db.Column(db.String)
+    ivaTax = db.Column(db.Integer)
+    stock = db.Column(db.Integer)
+    stockmin = db.Column(db.Integer)
+    amount = db.Column(db.ForeignKey("Input.amount"))
+    salePrice = db.Column(db.Integer)
+    #salePrice = db.Column(db.Integer) # este se necesita pero formulado salePrice=Input.purchasePrice*ivaTax*%ganancia
+    def __init__(self, name, codeProduct, brand, productType, measureUnit, ivaTax, stock, stockmin, amount, salePrice):    
+        self.name = name
+        self.codeProduct = codeProduct
+        self.brand = brand
+        self.productType = productType
+        self.measureUnit = measureUnit
+        self.ivaTax = ivaTax
+        self.stock = stock
+        self.stockmin = stockmin
+        self.amount = amount
+        self.salePrice = salePrice   
+
+#table inventary
+class inventary (db.Model):
+    __tablename__ = 'inventary'
+    id = db.Column (db.Integer, primary_key = True, autoincrement = True)    
+    name = db.Column(db.ForeignKey("products.name"))
+    codeProduct = db.Column(db.ForeignKey("products.codeProduct"))
+    brand = db.Column(db.ForeignKey("products.brand"))
+    productType = db.Column(db.ForeignKey("products.productType"))
+    admissionDate = db.Column(db.Integer)
+    measureUnit = db.Column(db.ForeignKey("products.measureUnit"))
+    ivaTax = db.Column(db.ForeignKey("products.ivaTax"))
+    stock = db.Column(db.ForeignKey("products.stock"))
+    stockmin = db.Column(db.Integer)
+    amount = db.Column(db.ForeignKey("products.amount"))
+    
+    def __init__(self, name, codeProduct, brand, productType, admissionDate, measureUnit, ivaTax, stock, stockmin, amount):
+        self.name = name
+        self.codeProduct = codeProduct
+        self.brand = brand
+        self.productType = productType
+        self.admissionDate = admissionDate
+        self.measureUnit = measureUnit
+        self.ivaTax = ivaTax
+        self.stock = stock
+        self.stockmin = stockmin
+        self.amount = amount
+
+class NewUser (db.Model):
+    __tablename__ = 'NewUser'
+    id_NewUser = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    email = db.Column(db.String, unique = True)
+    password = db.Column(db.String)
+    telephone = db.Column(db.String)
+    cc = db.Column(db.String)
+    role = db.Column(db.String)
+    name = db.Column(db.String)
+    lastname = db.Column(db.String)
+    birthDate =db.Column(db.String)
+    def __init__(self, email, password, telephone, cc, role, name, lastname, birthDate):
+        self.email = email
+        self.password = password
+        self.telephone = telephone
+        self.cc = cc
+        self.role = role
+        self.name = name
+        self.lastname = lastname
+        self.birthDate = birthDate
+        
+#Tabla user
+class User (db.Model):
+    __tablename__ = 'User'
+    id_user = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    cc = db.Column(db.ForeignKey("NewUser.cc"))
+    email = db.Column(db.String)
+    password = db.Column(db.String)
+    def __init__(self, cc, email, password):
+        self.cc = cc
+        self.email = email
+        self.password = password
+#tabla ingreso
+class Input (db.Model):
+    __tablename__ = 'Input'
+    id_input = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    id_user = db.Column(db.ForeignKey("User.cc"))
+    codeProduct = db.Column(db.ForeignKey("products.codeProduct"))
+    codeProduct = db.Column(db.ForeignKey("products.codeProduct"))
+    amount_Input = db.Column(db.Integer)
+    unitValue = db.Column(db.Integer)
+    date = db.Column(db.Integer)
+    purchasePrice = db.Column(db.Integer)
+    percentageProfit = db.Column(db.Integer)    
+    admissionDate = db.Column(db.ForeignKey("inventary.admissionDate"))
+    def __init__(self, id_user, codeProduct, amount_Input, unitValue, date, purchasePrice, percentageProfit, admissionDate):
+        self.id_user = id_user
+        self.codeProduct = codeProduct
+        self.amount_Input = amount_Input
+        self.unitValue = unitValue
+        self.date = date
+        self.purchasePrice = purchasePrice
+        self.percentageProfit = percentageProfit
+        self.admissionDate = admissionDate
+#tabla detalle de venta
+class Saledetail (db.Model):
+    __tablename__ = 'Saledetail'
+    id = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    idPorduct  = db.Column(db.ForeignKey("products.id_product"))
+    amountsale = db.Column(db.Integer)
+    unitValue = db.Column(db.ForeignKey("Input.unitValue"))
+    ivaTax = db.Column(db.ForeignKey("products.ivaTax"))
+    totalValue = db.Column(db.Integer)  
+    def __init__(self, idPorduct, amountsale, unitValue, ivaTax, totalValue):
+        self.idPorduct = idPorduct
+        self.amountsale = amountsale
+        self.unitValue = unitValue
+        self.ivaTax = ivaTax
+        self.totalValue = totalValue
+#tabla salida
+class Output (db.Model):
+    __tablename__ = 'Output'
+    id = db.Column(db.Integer, primary_key=True, autoincrement = True)
+    iduser = db.Column(db.ForeignKey("User.id_user"))
+    purchasePrice = db.Column(db.ForeignKey("Input.purchasePrice"))
+    idSaleDetail = db.Column(db.ForeignKey("Saledetail.id"))
+    def __init__(self, iduser, purchasePrice, idSaleDetail):
+        self.iduser = iduser
+        self.purchasePrice = purchasePrice
+        self.idSaleDetail = idSaleDetail
+#tabla provedores
+class vendors (db.Model):
+    __tablename__ = 'vendors'
+    id = db.Column (db.Integer, primary_key = True, autoincrement = True)    
+    name = db.Column(db.String)
+    codeProduct = db.Column(db.Integer)
+    brand = db.Column(db.String, nullable=True)
+    productType = db.Column(db.String, nullable=True)
+    admissionDate = db.Column(db.ForeignKey("Input.date"))
+    measureUnit = db.Column(db.ForeignKey("products.measureUnit"))
+    rolevendor = db.Column(db.String)
+    namevendor = db.Column(db.String)
+    lastnamevendor = db.Column(db.String)
+    companyvendor = db.Column(db.String)
+    orderday = db.Column(db.String)
+    def __init__(self, name, codeProduct, brand, productType, admissionDate, measureUnit, rolevendor, namevendor, lastnamevendor, companyvendor, orderday):
+        self.name = name
+        self.codeProduct = codeProduct
+        self.brand = brand
+        self.productType = productType
+        self.admissionDate = admissionDate
+        self.measureUnit = measureUnit
+        self.rolevendor = rolevendor
+        self.namevendor = namevendor
+        self.lastnamevendor = lastnamevendor 
+        self.companyvendor = companyvendor 
+        self.orderday = orderday
+#tabla datos tienda 
+class store (db.Model):
+    __tablename__ = 'Store'
+    id = db.Column (db.Integer, primary_key = True, autoincrement = True)    
+    nameStore = db.Column (db.String)
+    ownerStore = db.Column (db.ForeignKey("NewUser.name"))
+    telephone = db.Column (db.ForeignKey("NewUser.telephone"))
+    email = db.Column (db.ForeignKey("NewUser.email"))
+    address = db.Column (db.String)
+    def __init__(self, nameStore, ownerStore, telephone, email, address):
+        self.nameStore = nameStore
+        self.ownerStore = ownerStore
+        self.telephone = telephone
+        self.email = email
+        self.address = address
+
+
+
+
+
+
+
