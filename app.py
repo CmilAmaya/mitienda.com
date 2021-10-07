@@ -38,7 +38,7 @@ def sing_up():
     return  render_template("register.html") #'Aqui va redirigido a otra html con el formulario de registro /sign_updata
 
 # post de los datos del registro, viene de signup
-@app.route('/create_user', methods=['POST'])
+@app.route('/create_user', methods=['POST', 'GET'])
 def create_user():
     email = request.form["email"] #trae los datos de los form de html
     password = request.form["password"]
