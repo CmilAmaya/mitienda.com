@@ -65,44 +65,26 @@
           </style>
 </head>
 <body>
-   <h1> Registro mitienda.com </h1> 
+   <h1> Registro Clave de Seguridad </h1> 
     <img src="https://img.freepik.com/vector-gratis/carro-tienda-edificio-tienda-dibujos-animados_138676-2085.jpg?size=338&ext=jpg" width="150">
     <!-- aqui se conecta frontend con la base de datos por medio de un formulario-->
     <!-- tomando la url de la sign_updata, entrada que se llama igual que lo que llega del post request--> 
-    <form action="{{url_for('create_user')}}" method="post">
-      <h2> Ingrese sus datos </h2>
-      <div>
-        <!--<input type="radio" name="role" placeholder="Administrador o Tendero"-->
-        <fieldset>
-          <label>
-              <input type="radio" name="role" value="Administrador">Administrador
-          </label>
-          <label>
-              <input type="radio" name="role" value="Tendero">Tendero
-          </label>
-        </fieldset>
-      </div>
+    <form action="{{url_for('second_key')}}" method="post">
+      
       <div>
         <input type="text" name="email" placeholder="E-mail"
-      </div>
-      <div>
-        <input type="password" name="password" placeholder="Contraseña"
       </div>
       <div>
         <input type="text" name="cedula" placeholder="Identificacion"
       </div>
       <div>
-        <input type="text" name="telephone" placeholder="Celular"
-      </div>
-      
-      <div>
-        <input type="text" name="name" placeholder="Nombre"
+        <input type="password" name="password" placeholder="Contraseña"
       </div>
       <div>
-        <input type="text" name="lastname" placeholder="Apellido"
+        <input type="password" name="secondkey" placeholder="Segunda Clave"
       </div>
       <div>
-        <input type="text" name="birthDate" placeholder="Fecha de nacimiento"
+        <input type="password" name="secondkey2" placeholder="Confirme Segunda Clave"
       </div>
       <div>
         <!-- presiono el boton y se envian los datos a la url por un post request-->

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from flask.wrappers import Request #request importado para manejar peticiones que llegan al servidor
 from flask_sqlalchemy import SQLAlchemy #importada para trabajar de python a SQL bases de datos
 from sqlalchemy.orm import session
@@ -6,9 +6,11 @@ from sqlalchemy.orm import session
 
 app = Flask(__name__)
 #conexion a la base de datos: 'postgresql://<usuario>:<contraseña>@<direccion de la db>:<puerto>/<nombre de la db>'
-app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://vkxloqhhabrinb:6afc88e11ca5780df6635e9113813dcad93c3a94a8c3337f98ba2711ebcda892@ec2-35-171-171-27.compute-1.amazonaws.com:5432/dam05ju1pfpbir'
-# esta es la direccion para la base de datos local, ahora es remota de heroku linea anterior, y se va'postgresql://postgres:root@localhost:5432/mitiendadb2'
-#app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://postgres:root@localhost:5432/mitiendadb2'
+#mitiendadbmk app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://hbedjophdpnvtn:09012119aadbc480a7e10c78cb3559b8a32a8ef42e00fccf7fdff326cf164d0c@ec2-54-204-148-110.compute-1.amazonaws.com:5432/ddtcupulsd1301'
+#tiendatic8
+app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://kdcomrcocwozdz:974561734fb45332bd3bb3b35ba5ff6852f843eff2d0f0c8bfd5172a42ab10bf@ec2-54-172-169-87.compute-1.amazonaws.com:5432/d9ur448hibm85l'
+# esta es la direccion para la base de datos local, ahora es remota de heroku linea anterior, y se va'postgresql://postgres:root@localhost:5432/mitiendadbmk'
+#app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://postgres:root@localhost:5432/mitiendadbmk'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key ='some-secret-key'
 
@@ -16,7 +18,7 @@ app.secret_key ='some-secret-key'
 db = SQLAlchemy(app) # este app o lo que sea va en el procfile kkllk:app
 
 # importar los modelos de las tablas que cree en el otro archivo
-from models import Product, NewUser
+from models import Product, NewUser, User
 
 
 #crear el esquema de la base de datos en postgre
@@ -36,7 +38,8 @@ def get_home():
 # ingreso para registro, viene de home
 @app.route('/signup')
 def sing_up():
-    return  render_template("register.html") #'Aqui va redirigido a otra html con el formulario de registro /sign_updata
+    return  render_template("register.html") 
+
 
 # post de los datos del registro, viene de signup
 @app.route('/create_user', methods=['POST'])
@@ -49,51 +52,131 @@ def create_user():
     name = request.form["name"]
     lastname = request.form["lastname"]
     birthDate = request.form["birthDate"]
-    print (email, password, telephone, role, name, lastname, birthDate)
-    newUser = NewUser(email, password,cedula, telephone, role, name, lastname, birthDate)  
-    db.session.add(newUser)  #creado y agregado a base de datos
-    db.session.commit()
-    return ("Usuario creado con exito ")
 
-    # falta hacer que regrese a home
-      
-# ingreso para ingreso, viene de home Administrador
+    newuser = NewUser(email, password,cedula, telephone, role, name, lastname, birthDate)  
+    db.session.add(newuser)  #creado y agregado a base de datos
+    db.session.commit()
+    
+    #return ("Usuario creado con exito ")
+    return redirect(url_for("get_home"))    #regresa a home
+    # con user= estoy pasando la info del role del newuser
+
+# ingreso, viene de home Administrador
 @app.route('/signin')
 def sing_in():
     return  render_template("signin_admin.html")
 
-# acceso como administrador, debe ir al panel de administrador
+# acceso como administrador, debe ir al panel de administrador o retornar aca
 @app.route('/signin_admin', methods=['POST'])
-def singin_admin():
-    email = request.form["email"]
+def signin_admin():
+    emailin = request.form["email"]
     passwordin = request.form["password"]
-    print ("Bienvenido" , email, passwordin)
-    #return (email, passwordin)
 
-'''def get_user():
-    user = NewUser.query.email() 
-    password_ok = NewUser.query.password()
-    return (user, password_ok) 
-if email == user & passwordin==pasword_ok:
-    print ("Bienvenido")
-    # enviar a panel de administrador
-else:
-    print ("Acceso Denegado")
-    # retornar a home'''
-'''
+    admin = NewUser.query.filter(NewUser.email == emailin, NewUser.password==passwordin).first()
+    print (emailin, passwordin)
+    print (admin)
+    
+    if (admin is not None):
+            return render_template("paneladmin.html")
+    else:
+        return render_template("signin_admin.html")
+
+#falta que con tres intentos se bloquee
+# hasta aqui funciona ok viernes 1pm       
+
 # acceso como tendero, viene de Home, va al manejo de ventas y compras
 @app.route('/signin_grocer')
-def sing_in():
-    return 'Aqui va el Acceso' # Acceso
+def sing_grocer():
+    return render_template("signin_grocer.html") # Acceso
 
+@app.route('/signin_grocerin', methods=['POST'])
+def signin_grocerin():
+    emailin = request.form["email"]
+    passwordin = request.form["password"]
+
+    tender = NewUser.query.filter(NewUser.email == emailin, NewUser.password==passwordin).first()
+    print (emailin, passwordin)
+    print (tender)
+    
+    if (tender is not None):
+            return render_template("panelTendero.html")
+    else:
+        return render_template("signin_grocer.html")
+
+#@app.route('//<user>') para usar si el rol es administrador
+#def get_home(user):
+    #return render_template("index.html", user)
+
+# Del panel de administrador a estadisticas
+@app.route('/statistics')
+def statistics():
+    return render_template("Estadisticas.html") # Historial y estadisticas
+
+@app.route('/delete_user')
+def delete_user():
+    return render_template("/delete_user.html") # Acceso
+
+@app.route('/delete_user_post', methods=["POST"])
+def delete_user_post():
+    user_cedula=request.form["cedula"]
+    userdelete = NewUser.query.filter_by(cedula=user_cedula).first()
+    db.session.delete(userdelete)
+    db.session.commit()
+    print ("Se borro usuario", userdelete)
+    return render_template("paneladmin.html")
+
+@app.route('/update_user')
+def update_user():
+    return render_template("/update_user.html") # Acceso
+#esta parte aun no funciona
+@app.route('/update_user_post', methods=["POST"])
+def update_user_post():
+    old_name =request.form["cedula"]
+    new_name =request.form["Newcedula"]
+    old_user = NewUser.query.filter_by(cedula=old_name).first() #esto es una consulta por columna name, el primer campo
+    old_user.cedula = new_name # se cambia el nombre
+    db.session.commit()
+    return "actualizacion exitosa" 
+def update_user():
+    old_name ="leche"
+    new_name = "leche deslactosada"
+    old_product = Product.query.filter_by(name=old_name).first() #esto es una consulta por columna name, el primer campo
+    old_product.name = new_name # se cambia el nombre
+    db.session.commit()
+    return "actualizacion exitosa"
+    
+
+# Del panel de administrador a gestion de segunda clave
+@app.route('/second_key_get')
+def second_key_get():
+    return render_template("secondkey.html")
+
+@app.route('/second_key', methods=['POST']) 
+def second_key():
+    emailk = request.form["email"] #trae los datos de los form de html
+    cedulak = request.form["cedula"]
+    passwordk = request.form["password"]
+    secondkey = request.form["secondkey"]
+    secondkey2 = request.form["secondkey2"]
+
+    confirsk = NewUser.query.filter(NewUser.email == emailk, NewUser.cedula==cedulak, NewUser.password==passwordk).first()
+    print (emailk, cedulak, passwordk, secondkey, secondkey2)
+    print (confirsk)
+    
+    if ((confirsk is not None) and (secondkey==secondkey2)):
+            return render_template("paneladmin.html")
+    else:
+        return render_template("secondkey.html")
+    
+
+
+'''
 @app.route('/adminstock')
 def admin_stock():
     return 'Aqui va el panel del administrar inventario, stock' # Panel de inventario
+'''
 
-@app.route('/statistics')
-def statistics():
-    return 'Aqui va el panel de estadisticas e historial' # Historial y estadisticas
-
+'''
 @app.route('/sales')
 def sales():
     return 'Aqui va el panel de ventas' # Gestion de ventas de la tienda
@@ -247,6 +330,6 @@ def crud_product(): # metodo, para probar es con postman
         return "Registro Exitoso"
 
      '''
-
+# para que corra desde el servidor remoto
 if __name__ == "__main__":
 	    app.run()
