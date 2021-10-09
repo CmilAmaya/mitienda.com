@@ -1,6 +1,9 @@
 
 # mitienda.com
-El objetivo del presente proyecto es desarrollar una página WEB para la creación de una tienda virtual llamada mitienda.com que permita a cada tendero registrar en ella la información de su tienda con el fin de tener un control de los ingresos, egresos e inventarios de su negocio.
+# <a href="https://tiendatic8.herokuapp.com/">Sitio oficial
+  
+<h1> Objetivo</h1>
+<p>El objetivo del presente proyecto es desarrollar una página WEB para la creación de una tienda virtual llamada mitienda.com que permita a cada tendero registrar en ella la información de su tienda con el fin de tener un control de los ingresos, egresos e inventarios de su negocio.<p>
 
 # Propósito
 El propósito del proyecto mitienda.com es mejorar la eficiencia y capacidad competitiva de los usuarios por medio de la tecnificación de sus actividades con el objetivo de facilitar procesos como el control de inventario y el registro de egresos e ingresos.
